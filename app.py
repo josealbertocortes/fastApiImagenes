@@ -1,5 +1,5 @@
 from fastapi import FastAPI,UploadFile,File
-from fastapi.responses import FileResponse,JSONResponse
+from fastapi.responses import FileResponse,RedirectResponse
 from fastapi.datastructures import UploadFile
 from config.db import client
 from bson import ObjectId
@@ -38,5 +38,8 @@ def get_imagen(id:str):
     nameimagen = client.imagen.imagen.find_one({"_id":ObjectId(id)})
     return FileResponse(getcwd()+"/imagenes/"+nameimagen['nombre'],media_type="application/octet-stream",filename=nameimagen['nombre'])
 
-
+@app.get("/")
+async def redirect():
+    response = RedirectResponse(url='/docs')
+    return response
 
