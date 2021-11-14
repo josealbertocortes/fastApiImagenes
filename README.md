@@ -90,4 +90,15 @@ La respuesta será la siguiente
 
 ![respuesta](./respuesta/respuesta.png)
 
+### obtener imagen 
+Se creo un endpoint para obtener la imagen, el path seria el siguiente, /imagen/{id}, donde el id es el id que te regresa la respuesta cuando se crea. Desde el navegador se puede entrar de la siguiente manera 
 
+https://fastapitestapp.herokuapp.com/imagen/6190801306109be91f987236
+
+### descargar imagen 
+tambien se creo un endpoint para descargar la imagen,/download/{id}, puedes hacer la petición en tu navegador de la siguiente forma 
+
+https://fastapitestapp.herokuapp.com/download/6190801306109be91f987236
+
+### documentacion 
+En el endpoint /docs, tendras la documentación
