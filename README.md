@@ -38,16 +38,18 @@ async def upload_imagen(file:UploadFile=File(...)):
         pass
     else:
         mkdir(getcwd()+'/imagenes/')
-    
-    with open(getcwd()+'/imagenes/'+file.filename,"wb") as myfile:
-        content = await file.read()
-        myfile.write(content)
-        myfile.close()
-    
     if(path.exists(getcwd()+'/imagenes/'+file.filename)):
         id = client.imagen.imagen.find_one({'nombre':file.filename})
         id =id['_id']
+        with open(getcwd()+'/imagenes/'+file.filename,"wb") as myfile:
+            content = await file.read()
+            myfile.write(content)
+            myfile.close()
     else:
+        with open(getcwd()+'/imagenes/'+file.filename,"wb") as myfile:
+            content = await file.read()
+            myfile.write(content)
+            myfile.close()
         id = client.imagen.imagen.insert_one({"nombre":file.filename}).inserted_id
     return {"msg":"imagen subida","id":str(id)}
 ```
