@@ -5,7 +5,7 @@ from os import getcwd,path,mkdir
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="imagenes"), name="static")
+app.mount("/static", StaticFiles(directory="./imagenes"), name="static")
 @app.post('/imagenes')
 async def upload_imagen(file:UploadFile=File(...)):
     if path.exists(getcwd()+'/imagenes/'):
