@@ -1,7 +1,9 @@
 from fastapi import FastAPI,UploadFile,File
+from fastapi.responses import FileResponse,JSONResponse
 from fastapi.datastructures import UploadFile
 from config.db import client
-from os import getcwd,path,mkdir
+from bson import ObjectId
+from os import getcwd,path,mkdir, remove
 
 app = FastAPI()
 
@@ -25,3 +27,16 @@ async def upload_imagen(file:UploadFile=File(...)):
             myfile.close()
         id = client.imagen.imagen.insert_one({"nombre":file.filename}).inserted_id
     return {"msg":"imagen subida","id":str(id)}
+
+@app.get("/imagen/{id}")
+def get_imagen(id:str):
+    nameimagen = client.imagen.imagen.find_one({"_id":ObjectId(id)})
+    return FileResponse(getcwd()+"/imagenes/"+nameimagen['nombre'])
+
+@app.get("/download/{id}")
+def get_imagen(id:str):
+    nameimagen = client.imagen.imagen.find_one({"_id":ObjectId(id)})
+    return FileResponse(getcwd()+"/imagenes/"+nameimagen['nombre'],media_type="application/octet-stream",filename=nameimagen['nombre'])
+
+
+
